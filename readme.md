@@ -13,6 +13,15 @@ $ cnpm install
 $ cnpm node app
 $ node app
 ```
+如果想要实时监听修改，安装nodemon
+```$xslt
+//全局安装
+$ cnpm install nodemon -g 
+//本地安装
+$ cnpm install nodemon --save-dev
+$ nodemon app
+```
+
 在浏览器中打开 localhost:5555
 
 # socket.io文档
