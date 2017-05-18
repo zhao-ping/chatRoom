@@ -8,6 +8,7 @@ $ cnpm install socket.io -g
 ```
 下载本例，install并运行
 ```$xslt
+$ cnpm git clone git@github.com:zhao-ping/chatRoom.git
 $ cnpm install
 $ cnpm node app
 $ node app
