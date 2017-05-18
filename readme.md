@@ -27,6 +27,8 @@ $ nodemon app
 //chorme浏览器需要同时安装livereload插件
 
 $ cnpm install livereload -g
+//运行
+$ livereload  
 ```
 
 
@@ -34,7 +36,7 @@ $ cnpm install livereload -g
 
 # socket.io文档
 [SOCKET.IO，系统API](http://www.cnblogs.com/xiezhengcai/p/3956401.html)
-##服务端
+## 服务端
 1. 监听客户端连接,回调函数会传递本次连接的socket
 ```$xslt
 io.on('connection',function(socket));
