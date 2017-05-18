@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>聊天室</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="/css/index.css"/>
+</head>
+<body>
+<div class="main">
+    <div class="main-top">
+        <span id="mynikname">昵称</span>
+    </div>
+    <div class="main-body">
+        <section class="chatRoomInfo">
+            <div class="info">当前共有<span class="chatNum">0</span>人在线。在线列表:&nbsp;<span class="chatList"></span></div>
+        </section>
+        <p id="connectionState"></p>
+        <div id="messagebox">
+
+        </div>
+    </div>
+    <form onsubmit="return false" class="main-footer clearfix">
+        <div class="input">
+            <input type="text" name="msg" id="msg" value="" />
+        </div>
+        <button type="submit" class="send">发送</button>
+    </form>
+</div>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdn.bootcss.com/socket.io/2.0.1/socket.io.slim.js"></script>
+<script>
+    var socket = io();
+    $('#connectionState').text('正在连接服务器...');
+socket.on('connect',function () {
+    $('#connectionState').html('<form onsubmit="return false"><input type="text" placehoder="请输入昵称" name="nikname"/><button type="submit" id="nameBtn">提交</button></form>');
+    $('#nameBtn').click(function () {
+        var nikename= $('input[name="nikname"]').val().trim();
+        if(nikename.length>0){
+            socket.emit('nikname',nikename);
+            $('#mynikname').text(nikename);
+        }else{
+            alert('请填写昵称！');
+            $('input[name="nikename"]').val("");
+            $('input[name="nikename"]').focus();
+        }
+
+    });
+    //提示昵称已存在
+    socket.on('hasNikname',function (nikname) {
+        alert(nikname+'已存在，请更换昵称');
+        $('input[name="nikename"]').val("");
+        $('input[name="nikename"]').focus();
+    })
+    //提示登陆成功
+    socket.on('logined',function (data) {
+        alert(data.nikname+',欢迎您来到聊天室');
+        $('#connectionState').remove();
+        $('.chatNum').text(data.userCount);
+
+    })
+    //提示有人登录成功
+    socket.on('system',function (data) {
+        $('.chatNum').text(data.userCount);
+        $('#messagebox').prepend('<p style="padding: 10px;"><span style="color:#999;padding-right:5px;">system : </span>'+data.nikname+'登录聊天室</p>')
+    })
+
+    $('.send').click(function () {
+        var messagestr=$('#msg').val().trim();
+        if(messagestr.length>0){
+            socket.emit('message',{messagestr:messagestr,nikename: $('#mynikname').text()});
+            $('#msg').val("");
+        }
+
+    });
+    //接收到新的消息
+    socket.on('newMessage',function (data) {
+        $('#messagebox').prepend('<p style="padding: 10px;"><span style="color:#999;padding-right:5px;">'+data.nikename+' : </span>'+data.messagestr+'</p>')
+
+    })
+})
+
+
+</script>
+</body>
+</html>
