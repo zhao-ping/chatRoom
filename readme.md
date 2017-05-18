@@ -1,4 +1,4 @@
-#chatRoom
+#ChatRoom
 一个简单的基于socket.io的聊天室
 
 ##使用方法
