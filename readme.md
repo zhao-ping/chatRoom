@@ -13,14 +13,22 @@ $ cnpm install
 $ cnpm node app
 $ node app
 ```
-如果想要实时监听修改，安装nodemon
+想要实时监听服务器，安装nodemon（如果不想实时监听服务器，可跳过此步）
 ```$xslt
 //全局安装
 $ cnpm install nodemon -g 
-//本地安装
+//本地安装吹牛拍马install
 $ cnpm install nodemon --save-dev
+//运行服务
 $ nodemon app
 ```
+想要监听代码并实时刷新浏览器(Ctrl+s),安装livereload(如果不想，可跳过此步)
+```$xslt
+//chorme浏览器需要同时安装livereload插件
+
+$ cnpm install livereload -g
+```
+
 
 在浏览器中打开 localhost:5555
 

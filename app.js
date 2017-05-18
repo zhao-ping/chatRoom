@@ -4,7 +4,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ejs=require('ejs');
-var index = require('./routes/index');
+var routes = require('./routes/index');
 var app = express();
 var http=require('http').Server(app);
 var io=require('socket.io').listen(http);//引入socket.io模块并绑定到服务器
@@ -22,9 +22,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', function (req,res) {
+/*app.use('/', function (req,res) {
     res.render('./client/index');
-});
+});*/
+routes(app);
 
 var users=[];
 var userCount=0;
