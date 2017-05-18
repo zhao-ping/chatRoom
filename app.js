@@ -51,6 +51,6 @@ io.on('connection', function(socket){
 // module.exports = app;
 //
 //node app 运行
-http.listen('5050',function () {
+http.listen('5555',function () {
     console.log('server runing at localhost:5555');
 })
