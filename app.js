@@ -44,6 +44,9 @@ io.on('connection', function(socket){
    socket.on('message',function (data) {
         io.sockets.emit('newMessage',data);
    })
+    socket.on('disconnect', function() {
+        userCount--;
+    });
 });
 
 
